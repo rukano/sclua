@@ -1,8 +1,10 @@
 local osc = require("osc")
---local funcs = require("sclua.funcs")
-
-local function tobinary (bool) if bool return 1 else return 0 end
+local
+function tobinary (b)
+   if b then return 1 else return 0 end
+end
 local Server = {}
+
 Server.__index = Server
 
 --------------------
@@ -63,7 +65,7 @@ function Server:boot()
    local o = self.options
    local cmd =
       "cd " .. o.path
-      .. " scsynth &&"
+      .. " && scsynth "
       .. " -" .. o.protocol .. " " .. o.port
       .. " -c " .. o.numControlBusChannels
       .. " -a " .. o.numAudioBusChannels
@@ -75,7 +77,7 @@ function Server:boot()
       .. " -b " .. o.numBuffers
       .. " -n " .. o.maxNodes
       .. " -d " .. o.maxSynthDefs
-      .. " -m " .. o.memorySize
+      .. " -m " .. o.memSize
       .. " -w " .. o.numWireBufs
       .. " -r " .. o.numRGens
       .. " -D " .. tobinary(o.loadDefs)
@@ -87,7 +89,7 @@ function Server:boot()
    end
 
    if o.pluginsPath then
-      cmd .. " -U " .. o.pluginsPath
+      cmd = cmd .. " -U " .. o.pluginsPath
    end
 
    cmd = cmd .." &" -- run in background
