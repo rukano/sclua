@@ -6,7 +6,7 @@ s:boot()
 
 go(2, function ()
       print("loading synths")
-      s:sendMsg('/d_loadDir', "/Users/rukano/Library/Application\ Support/SuperCollider/synthdefs")
+      s:loadDir("/Users/rukano/Library/Application\ Support/SuperCollider/synthdefs")
       wait(1)
       a = Synth:new("default")
       wait(1)
