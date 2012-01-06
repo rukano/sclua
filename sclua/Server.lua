@@ -93,8 +93,12 @@ function Server:boot()
    end
 
    cmd = cmd .." &" -- run in background
-   
-   os.execute(cmd)
+   if not self.isBooted then
+      os.execute(cmd)
+      self.isBooted = true
+   else
+      print("server already booted")
+   end
 end
 
 
@@ -105,6 +109,7 @@ function Server:new(IP, port)
    local port = port or self.options.port
    srv.IP = IP
    srv.port = port
+   srv.isBooted = false
    oscout = osc.Send(srv.IP, srv.port)
    -- oscin  = osc.Recv(57180) -- I need a two directional OSC port
    return srv
