@@ -94,15 +94,15 @@ function Server:boot()
 
    cmd = cmd .." &" -- run in background
    
-   os.execute(cmd) 
+   os.execute(cmd)
 end
 
 
-function Server:new(IP, port)
+function Server:new(ip, port)
 	local srv = {}
 	setmetatable(srv, Server)
-	local IP = IP or self.ip
-	local port = port or self.port
+	local ip = ip or self.options.ip
+	local port = port or self.options.port
 	srv.IP = IP
 	srv.port = port
 	oscout = osc.Send(srv.IP, srv.port)
