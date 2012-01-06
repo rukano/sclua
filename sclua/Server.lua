@@ -1,8 +1,5 @@
 local osc = require("osc")
-local
-function tobinary (b)
-   if b then return 1 else return 0 end
-end
+local function tobinary (b) if b then return 1 else return 0 end end
 local Server = {}
 
 Server.__index = Server
