@@ -99,42 +99,46 @@ end
 
 
 function Server:new(IP, port)
-	local srv = {}
-	setmetatable(srv, Server)
-	local IP = IP or self.options.IP
-	local port = port or self.options.port
-	srv.IP = IP
-	srv.port = port
-	oscout = osc.Send(srv.IP, srv.port)
-	-- oscin  = osc.Recv(57180) -- I need a two directional OSC port
+   local srv = {}
+   setmetatable(srv, Server)
+   local IP = IP or self.options.IP
+   local port = port or self.options.port
+   srv.IP = IP
+   srv.port = port
+   oscout = osc.Send(srv.IP, srv.port)
+   -- oscin  = osc.Recv(57180) -- I need a two directional OSC port
    return srv
 end
 
 function Server:dumpOSC(mode)
--- 	I think this is buggy on the SC Server side (maybe not in 3.5)
---	0 - turn dumping OFF.
---	1 - print the parsed contents of the message.
---	2 - print the contents in hexadecimal.
---	3 - print both the parsed and hexadecimal representations of the contents.	
-	oscout:send('/dumpOSC', mode)
+   -- 	I think this is buggy on the SC Server side (maybe not in 3.5)
+   --	0 - turn dumping OFF.
+   --	1 - print the parsed contents of the message.
+   --	2 - print the contents in hexadecimal.
+   --	3 - print both the parsed and hexadecimal representations of the contents.	
+   oscout:send('/dumpOSC', mode)
 end
 
 function Server:freeAll()
-	oscout:send('/g_freeAll', 0)
-	oscout:send('/clearSched')
-	oscout:send("/g_new", 1, 0, 0)
+   oscout:send('/g_freeAll', 0)
+   oscout:send('/clearSched')
+   oscout:send("/g_new", 1, 0, 0)
 end
 
 function Server:sendMsg(...)
-	oscout:send(...)
+   oscout:send(...)
 end
 
 function Server:notify(arg)
-	oscout:send('/notify', arg)
+   oscout:send('/notify', arg)
 end
 
 function Server:status()
-	oscout:send('/status', arg)
+   oscout:send('/status', arg)
+end
+
+function Server:loadDir(path)
+   oscout:send('/d_loadDir', path)
 end
 
 --function get_osc()
