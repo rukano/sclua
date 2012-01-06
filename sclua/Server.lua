@@ -4,6 +4,13 @@ local osc = require("osc")
 local Server = {}
 Server.__index = Server
 
+--------------------
+-- Server Options
+Server.options = {}
+Server.options.path = "/Applications/LuaAV.12.12.11/"
+Server.options.port = 57110
+
+-----------------------------
 function Server:new(IP, port)
 	local srv = {}
 	setmetatable(srv, Server)
@@ -26,7 +33,13 @@ function Server:dumpOSC(mode)
 end
 
 function Server:boot()
-	os.execute("/Applications/LuaAV.12.12.11/scsynth -u 57110 -b 1026 -R 0 &") 
+	os.execute(
+	   "cd "
+	      .. self.options.path
+	      .. " scsynth &&"
+	      .. " -u " .. self.options.port
+	      ..  " -b 1026 -R 0 &"
+		  ) 
 end
 
 function Server:freeAll()
