@@ -10,7 +10,7 @@ function Synth:new(name, args)
    snth.nodeID = nodeID
    snth.name = name
    snth.args = funcs.parseArgsX(args)
-   s:sendMsg('/s_new', snth.name, snth.nodeID, 0, 1, unpack(snth.args))
+   s:sendMsg('/s_new', snth.name, snth.nodeID, 0, 0, unpack(snth.args))
    return snth
 end
 
