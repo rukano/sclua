@@ -11,8 +11,8 @@ Server.__index = Server
 -- Server Options
 
 Server.options = {}
-Server.options.path = "/Applications/LuaAV.12.12.11/"
-Server.options.ip = '127.0.0.1'
+Server.options.path = "/Applications/SuperCollider/"
+Server.options.IP = '127.0.0.1'
 Server.options.port = 57110
 Server.options.numAudioBusChannels = 128
 Server.options.numControlBusChannels = 4096
@@ -98,10 +98,10 @@ function Server:boot()
 end
 
 
-function Server:new(ip, port)
+function Server:new(IP, port)
 	local srv = {}
 	setmetatable(srv, Server)
-	local ip = ip or self.options.ip
+	local IP = IP or self.options.IP
 	local port = port or self.options.port
 	srv.IP = IP
 	srv.port = port
